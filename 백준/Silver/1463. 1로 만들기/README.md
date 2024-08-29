@@ -6,6 +6,27 @@
 
 다이나믹 프로그래밍
 
+### 랭킹 풀이 설명
+<p>재귀함수 생성</p>
+```java
+                    //지금까지의 연산횟수
+static int rec(int n, int cnt) {
+    if (n < 2) {
+        return cnt;
+    }
+
+    return Math.min(rec(n / 2, cnt + 1 + (n % 2)), rec(n / 3, cnt + 1 + (n % 3)));
+}
+```
+<ol>
+	<li> 나머지 구하는 연산을 통해 1을 간접적으로 뺌</li>
+		<ul>
+			<li>ex) <code>n % 2 == 1</code>인 경우, 계산값 1이 cnt에 추가되어 연산횟수가 자연스럽게 추가됨</li>
+		</ul>
+</ol>
+
+
+
 ### 풀이 설명
 
 <p>DP 사용</p>
