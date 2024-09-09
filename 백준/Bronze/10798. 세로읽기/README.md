@@ -14,7 +14,9 @@
 > ArrayIndexOutOfBoundException이 발생한 이유 
  
  2차원 배열에 대해 요소의 삽입을
+ 
 `배열[1차원 idx] = 문자열.toCharArray()` 로 지정하면 
+
 ~~**기존 지정**~~ 한 배열의 **2차원 idx**는 무시되고 
 ***문자열의 길이*** 가 2차원의 idx로 지정됨
 
