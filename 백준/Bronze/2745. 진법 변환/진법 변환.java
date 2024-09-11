@@ -7,10 +7,11 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
 		String num = st.nextToken();
         int base = Integer.parseInt(st.nextToken());
+        String ref = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int n = 0;
 
         for(int i=0;i<num.length();i++){
-            int a = num.charAt(i) < 58 ? num.charAt(i)-48:num.charAt(i)-55;
+            int a = ref.indexOf(num.charAt(i));
             n += a * Math.pow(base,num.length()-1-i);
         }        			
 		System.out.println(n);		
