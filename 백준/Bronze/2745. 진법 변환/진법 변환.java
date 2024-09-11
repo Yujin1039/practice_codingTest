@@ -10,12 +10,7 @@ public class Main {
         int n = 0;
 
         for(int i=0;i<num.length();i++){
-            int a = 0;
-            if(num.charAt(i) < 58){
-                a = Character.getNumericValue(num.charAt(i));
-            }else{
-                a = (num.charAt(i)-55); 
-            }
+            int a = num.charAt(i) < 58 ? num.charAt(i)-48:num.charAt(i)-55;
             n += a * Math.pow(base,num.length()-1-i);
         }        			
 		System.out.println(n);		
