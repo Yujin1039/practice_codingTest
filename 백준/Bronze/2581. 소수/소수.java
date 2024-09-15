@@ -3,10 +3,10 @@ import java.util.*;
 
 public class Main {	
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));       
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int m = Integer.parseInt(br.readLine());
-        List<Integer> primeList = new ArrayList<>();
+        int primeSum = 0; int firstPrime = 0;
 
         for(int i=n;i<=m;i++){
             boolean isPrime = true;
@@ -16,16 +16,15 @@ public class Main {
                     break;
                 }
             }
-            if(isPrime && i != 1) primeList.add(i); 
+            if(isPrime && i != 1) {
+                primeSum += i;
+                if(firstPrime == 0) firstPrime = i;
+            }
         }
 
-        if(!primeList.isEmpty()){
-            int sum = 0;
-            for(int a:primeList){
-                sum += a;
-            }
-            System.out.println(sum);
-            System.out.println(primeList.get(0));
+        if(firstPrime != 0){
+            System.out.println(primeSum);
+            System.out.println(firstPrime);
         }else{
             System.out.println("-1"); 
         }		
