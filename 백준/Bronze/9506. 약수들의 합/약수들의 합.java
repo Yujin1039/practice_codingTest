@@ -8,24 +8,20 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         while(n != -1){
-            int[] factors = new int[n+1];
+            List<Integer> factors = new ArrayList<>();
             int sum = 0;
             for(int i=1;i<n;i++){
-                if(n % i == 0) factors[i] = i;
+                if(n % i == 0) factors.add(i);
             }
             for(int f:factors){
-                if(f != 0){
-                    sum += f;
-                }
+                sum += f;
             }
             if(sum == n){
-                sb.append(n).append(" =");
+                sb.append(n).append(" = ");
                 for(int f:factors){
-                    if(f != 0){
-                        sb.append(" "+f).append(" +");
-                    }
+                    sb.append(f).append(" + ");
                 }
-                sb.deleteCharAt(sb.length() - 1).append("\n");
+                sb.delete(sb.length() - 3,sb.length() - 1).append("\n");
             }else{
                 sb.append(n).append(" is NOT perfect.\n");
             }
