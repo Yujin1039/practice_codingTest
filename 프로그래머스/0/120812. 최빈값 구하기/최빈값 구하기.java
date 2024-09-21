@@ -2,14 +2,24 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] array) {
-        Integer[] arrNum = new Integer[1000];
-        Arrays.fill(arrNum, 0);
-        for(Integer i:array){
+        int answer = 0;
+        int[] arrNum = new int[1000];
+        for(int i:array){
             arrNum[i]++;
         }
-        Integer[] copyNum = Arrays.copyOf(arrNum,arrNum.length);
+        int[] copyNum = Arrays.copyOf(arrNum,arrNum.length);
         Arrays.sort(copyNum);
-        List<Integer> list = Arrays.asList(arrNum); 
-        return copyNum[999] == copyNum[998] ? -1:list.indexOf(copyNum[999]);
+        
+        if(copyNum[999] == copyNum[998]){
+            answer = -1;
+        }else{
+            for(int i=0;i<1000;i++){
+                if(arrNum[i] == copyNum[999]){
+                    answer = i;
+                    break;
+                }
+            }
+        }
+        return answer;
     }
 }
