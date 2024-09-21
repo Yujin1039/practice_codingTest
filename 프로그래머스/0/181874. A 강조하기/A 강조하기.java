@@ -1,13 +1,12 @@
-import java.util.*;
-
+/*
+String클래스의 replace 메서드
+-> 문자열.replace("바꿀 문자열","바뀌는 문자열")
+   해당 조건 만족시 모두 변경!!
+*/
 class Solution {
     public String solution(String myString) {
-        StringBuilder answer = new StringBuilder(myString.toLowerCase());
-        for(int i=0;i<answer.length();i++){
-            if(answer.charAt(i) == 'a'){
-                answer.replace(i,i+1,"A");
-            }
-        }
-        return answer.toString();
+        myString = myString.toLowerCase();
+        myString = myString.replace("a","A");
+        return myString;
     }
 }
