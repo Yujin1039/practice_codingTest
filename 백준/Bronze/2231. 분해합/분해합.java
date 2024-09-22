@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int cst = 1;
+        int cst = n - (n+"").length()*9;
         
         for(;cst < n;cst++){
             String cstStr = cst + "";
