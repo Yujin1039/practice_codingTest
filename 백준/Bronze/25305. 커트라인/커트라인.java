@@ -8,13 +8,13 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int prize = Integer.parseInt(st.nextToken());
 
-        List<Integer> list = new LinkedList<>();
+        int[] score = new int[n];
         st = new StringTokenizer(br.readLine());
-        while(st.hasMoreTokens()){
-            list.add(Integer.parseInt(st.nextToken()));
+        for(int i=0;i<n;i++){
+            score[i] = Integer.parseInt(st.nextToken());
         }
         
-        Collections.sort(list);        
-        System.out.println(list.get(list.size()-prize));
+        Arrays.sort(score);        
+        System.out.println(score[n-prize]);
 	}
 }
