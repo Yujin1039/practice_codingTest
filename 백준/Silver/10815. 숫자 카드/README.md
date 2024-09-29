@@ -22,11 +22,10 @@
  
 ### 헷갈린 문법
 
-indexOf VS binarySearch
+`indexOf` VS `binarySearch`
 
-    `indexOf` : 문자열(String), 리스트(List) 에서 사용 가능
-
-    `binarySearch` : 배열(Array)에서 사용 가능
+    indexOf : 문자열(String), 리스트(List) 에서 사용 가능
+    binarySearch : 배열(Array)에서 사용 가능
 
 ### 제출 일자
 
