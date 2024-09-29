@@ -1,10 +1,10 @@
 class Solution {
     public String solution(int age) {
-        String answer = "";
+        StringBuilder sb = new StringBuilder();
         String aGe = age + "";
         for(int i=0;i<aGe.length();i++){
-            answer += (char)(aGe.charAt(i) + 49);
+            sb.append((char)(aGe.charAt(i) + 49));
         }
-        return answer;
+        return sb.toString();
     }
 }
