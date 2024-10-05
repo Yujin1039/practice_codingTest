@@ -12,7 +12,7 @@
 
 ### 랭킹 코드 분석
 
-HashSet의 `add`메서드 사용시, 이전에 있는 요소이면 false, 없던 요소라면 true를 반환함
+HashSet의 `add`메서드 사용시, **이전에 있는 요소**이면 false, **없던 요소**라면 true를 반환함
 
 → add메서드의 반환값이 있는지 몰라서 contains 메서드로 확인 후, add함
 
