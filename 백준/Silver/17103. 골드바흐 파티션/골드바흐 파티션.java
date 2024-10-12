@@ -1,19 +1,18 @@
 import java.util.*;
-import java.lang.*;
 import java.io.*;
 
 public class Main {
+    static boolean[] prime = new boolean[1000001];
     public static int isPrimes(int a){
-        boolean[] prime = new boolean[a+1];
         int b = 0;        
-        prime[0] = prime[1] = true;
         for(int i=2;i<=Math.sqrt(a);i++){
             if(prime[i]) continue;
             for(int j=i*2;j<=a;j += i){
                 prime[j] = true;
             }
         }
-        for(int i=2;i<=a/2;i++){
+        if(a == 4) return 1;
+        for(int i=3;i<=a/2;i+=2){
             if(!prime[i] && !prime[a - i]){
                 b++;
             } 
@@ -25,6 +24,7 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
+        prime[0] = prime[1] = true;
         for(int i=0;i<n;i++){
             int m = Integer.parseInt(br.readLine());
             sb.append(isPrimes(m)).append("\n");
