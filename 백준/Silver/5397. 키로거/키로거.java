@@ -3,26 +3,26 @@ import java.io.*;
 
 public class Main {   
     public static String password(String psStr){
-        List<Character> list = new LinkedList<>();
-        ListIterator<Character> iter = list.listIterator();
+        ArrayDeque<Character> ps1 = new ArrayDeque<>();
+        ArrayDeque<Character> ps2 = new ArrayDeque<>();
 
         for(int i=0;i<psStr.length();i++){
             char s = psStr.charAt(i);
             if(s == '>'){
-                if(iter.hasNext()) iter.next();
+                if(!ps2.isEmpty()) ps1.add(ps2.remove());
             }else if(s == '<'){
-                if(iter.hasPrevious()) iter.previous(); 
+                if(!ps1.isEmpty()) ps2.addFirst(ps1.removeLast()); 
             }else if(s == '-'){
-                if(iter.hasPrevious()) {
-                    iter.previous();
-                    iter.remove(); 
-                }
+                if(!ps1.isEmpty()) ps1.removeLast();
             }else{
-                iter.add(s);
+                ps1.add(s);
             }
         }
         StringBuilder sb = new StringBuilder();
-        for (char c : list) {
+        for (char c : ps1) {
+            sb.append(c);
+        }
+        for (char c : ps2) {
             sb.append(c);
         }
         return sb.toString();
@@ -34,7 +34,8 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<n;i++){
             sb.append(password(br.readLine())).append("\n");
-        }        
+        }
+        
         System.out.println(sb);
     }
 }
