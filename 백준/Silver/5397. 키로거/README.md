@@ -10,6 +10,16 @@
 
 자료 구조, 연결 리스트, 스택
 
+### 랭킹 코드
+
+시간 단축 요인: 입력값을 `toCharArray()`로 변환하여 개별 요소 접근
+
+빈 리스트로부터 **ListIterator 생성하기**
+```java
+List<Character> list = new LinkedList<>();
+ListIterator<List와 같은 타입> iter = list명.listIterator();
+```
+
 ### 제출 일자
 
 2024년 10월 17일 15:35:45
