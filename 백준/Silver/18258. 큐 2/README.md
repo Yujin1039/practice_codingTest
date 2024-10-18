@@ -10,6 +10,18 @@
 
 자료 구조, 큐
 
+### 랭킹 코드
+
+`int[]` 배열과 `head,tail` 지표를 통한 원형 큐 구현
+
+1) 배열 크기를 최대 입력값 개수인 2,000,000으로 설정
+2) `push`: tail++
+3) `pop`: head++
+
+### StringIndexOutOfBounds Exception 발생원인
+
+입력 명령어가 "push X"하나일 경우, sb가 빈 문자열이라 deleteCharAt 메서드가 오동작함
+
 ### 제출 일자
 
 2024년 10월 18일 16:47:14
