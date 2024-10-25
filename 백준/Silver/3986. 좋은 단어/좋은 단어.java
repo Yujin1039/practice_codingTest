@@ -8,16 +8,15 @@ public class Main {
         int goodWords = 0;
 
         for(int i=0;i<n;i++){
-            Stack<Character> stack = new Stack<>();
+            ArrayDeque<Character> stack = new ArrayDeque<>();
             String word = br.readLine();
             for(int j=0;j<word.length();j++){
                 char w = word.charAt(j);
-                if(stack.isEmpty() || stack.peek() != w) stack.add(w);
-                else if(stack.peek() == w) stack.pop();
+                if(stack.isEmpty() || stack.peekLast() != w) stack.add(w);
+                else if(stack.peekLast() == w) stack.pollLast();
             }
             if(stack.isEmpty()) goodWords++;
         }
-
         System.out.println(goodWords);
     }
 }
