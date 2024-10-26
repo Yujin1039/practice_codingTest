@@ -6,10 +6,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int[] allSet = new int[20];
-        for(int i=0;i<20;i++){
-            allSet[i] = i+1;
-        }
 
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<n;i++){
@@ -34,7 +30,9 @@ public class Main {
                     set[j] = 0;
                 }
             }else{
-                set = allSet.clone();
+                for(int j=0;j<20;j++){
+                    set[j] = j+1;
+                }
             }
         }
         System.out.println(sb.toString());
