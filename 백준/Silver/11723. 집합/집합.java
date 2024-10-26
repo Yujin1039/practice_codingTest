@@ -26,8 +26,7 @@ public class Main {
                 sb.append(set.contains(Integer.parseInt(st.nextToken())) ? 1:0).append("\n");
             }else if(method.equals("toggle")){
                 int x = Integer.parseInt(st.nextToken());
-                if(set.contains(x)) set.remove(x);
-                else set.add(x);
+                if(!set.add(x)) set.remove(x);
             }else if(method.equals("empty")){
                 set.clear();
             }else if(method.equals("all")){
