@@ -18,7 +18,7 @@ public class Main {
         sb = new StringBuilder();
         
         order(1,3,n);
-        System.out.println((int) Math.pow(2,n) -1);
+        System.out.println((1<<n) -1);
         System.out.println(sb.toString());
     }
 }
