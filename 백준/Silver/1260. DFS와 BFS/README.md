@@ -20,15 +20,41 @@
 3. bfs에서 데이터 추가 후, **방문했음을 기록**하지 않아 `메모리 초과` 발생
 4. dfs에서 방문은 하지 않고 연결된 노드를 기록해야하는데, 메모리가 초과되거나 방문 순서가 잘못되는 딜레마에 빠짐
 
-   ▶ **재귀 호출**로 해결 (스택으로는 못하나?)
+   ▶ **재귀 호출**로 해결 ~~(스택으로는 못하나?)~~
+
+   ```java
+   static void dfs(int n, int v) {
+    Stack<Integer> stack = new Stack<>();
+    stack.push(v);
+    vis[v] = true;
+    sb.append(v + " ");
+
+    while (!stack.isEmpty()) {
+        int current = stack.peek();
+        boolean found = false;
+
+        for (int i = 1; i <= n; i++) {
+            if (edges[current][i] && !vis[i]) {
+                stack.push(i);
+                vis[i] = true;
+                sb.append(i + " ");
+                found = true;
+                break; // Only push the first unvisited node
+            }
+        }
+
+            if (!found) {
+                stack.pop(); // Backtrack if no unvisited neighbors
+            }
+        }
+    }```
    
-6. 2차원 배열을 모두 탐색하지 않고 절반의 크기인 직각삼각형 형태만 탐색
+5. 2차원 배열을 모두 탐색하지 않고 절반의 크기인 직각삼각형 형태만 탐색
    
    → 테스트케이스는 잘 나오지만, 제출시 5% 즈음에서 `틀렸습니다` 판정
 
    ▶ 관찰 데이터(2차원 배열)을 모두 탐색해야 함
 
-   (
 
 ### 제출 일자
 
