@@ -3,9 +3,7 @@ import java.io.*;
 
 public class Main {
     static int[][] paperMatrix;
-    static int minus = 0;
-    static int zero = 0;
-    static int plus = 0;
+    static int[] result = new int[3];
 
     static void paper(int x,int y, int n){
         int p = paperMatrix[x][y];
@@ -20,9 +18,7 @@ public class Main {
             }
         }
         if(isUniform || n == 1){
-            if(p == -1) minus++;
-            else if(p == 0) zero++;
-            else plus++;
+            result[p+1]++;
             return;
         } else{
             for(int i=x;i<x+n;i += n/3){
@@ -44,6 +40,6 @@ public class Main {
             }
         }
         paper(0,0,n);
-        System.out.println(minus+"\n"+zero+"\n"+plus);
+        System.out.println(result[0]+"\n"+result[1]+"\n"+result[2]);
     }
 }
