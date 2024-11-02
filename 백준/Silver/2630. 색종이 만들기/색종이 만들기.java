@@ -8,24 +8,27 @@ class Main {
 
     static void dividePapers(int x, int y, int n){
         int start = papers[x][y];
-        boolean square = true;
+        
+        if(isSquare(x,y,n,start)){
+            if(start == 0) white++;
+            else blue++;
+            return;
+        }
+        dividePapers(x,y,n/2);
+        dividePapers(x+n/2,y,n/2);
+        dividePapers(x,y+n/2,n/2);
+        dividePapers(x+n/2,y+n/2,n/2);
+    }
+
+    static boolean isSquare(int x, int y, int n,int start){        
         for(int i=x;i<x+n;i++){
             for(int j=y;j<y+n;j++){
                 if(papers[i][j] != start) {
-                    square = false;
-                    break;
+                    return false;
                 }
             }
         }
-        if(square){
-            if(start == 0) white++;
-            else blue++;
-        }else{
-            dividePapers(x,y,n/2);
-            dividePapers(x+n/2,y,n/2);
-            dividePapers(x,y+n/2,n/2);
-            dividePapers(x+n/2,y+n/2,n/2);
-        }
+        return true;
     }
     
     public static void main(String[] args) throws IOException{
