@@ -5,7 +5,6 @@ class Main {
     static int[][] xy = new int[][]{{1,0,-1,0},{0,1,0,-1}}; 
     static int[][] map;
     static int[][] dist;
-    static boolean[][] vis;
     static Queue<int[]> queue = new LinkedList<>();
 
     public static void findDistance(int n,int m) {
@@ -17,11 +16,10 @@ class Main {
 
                 if(x < 0 || x >= n || y < 0 || y >= m ) continue;
 
-                if(!vis[x][y] && map[x][y] != 0){
+                if(map[x][y] != 0 && dist[x][y] == 0){
                     queue.add(new int[]{x,y});
                     dist[x][y] = dist[cur[0]][cur[1]] + 1;
                 }
-                vis[x][y] = true;
             }
         }
     }
@@ -33,7 +31,6 @@ class Main {
         int m = Integer.parseInt(st.nextToken());
         map = new int[n][m];
         dist = new int[n][m];
-        vis = new boolean[n][m];
 
         for(int i=0;i<n;i++){
             st = new StringTokenizer(br.readLine());
@@ -42,21 +39,20 @@ class Main {
                 map[i][j] = val;
                 if(val == 2) {
                     queue.add(new int[]{i,j});
-                    vis[i][j] = true;
                 }
             }
         }
-
         findDistance(n,m);
+        
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(!vis[i][j] && map[i][j] != 0 && dist[i][j] == 0) sb.append(-1+" ");
+                if(map[i][j] != 0 && dist[i][j] == 0) sb.append(-1+" ");
+                else if(map[i][j] == 2) sb.append(0+" ");
                 else sb.append(dist[i][j]+" ");
             }
             sb.append("\n");
-        }
-        
+        }        
         System.out.println(sb);
     }
 }
