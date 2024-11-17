@@ -5,17 +5,14 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int[][] seq = new int[n][2];
+        int[] seq = new int[n];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int i=0;i<n;i++){
-            seq[i][0] = Integer.parseInt(st.nextToken());
-        }
-
-        int max = seq[0][1] = seq[0][0];
+        int max = seq[0] = Integer.parseInt(st.nextToken());
         for(int i=1;i<n;i++){
-            seq[i][1] = seq[i-1][1] < 0 ? seq[i][0]:seq[i-1][1] + seq[i][0];
-            if(seq[i][1] > max) max = seq[i][1];
+            int m = Integer.parseInt(st.nextToken());
+            seq[i] = seq[i-1] < 0 ? m:seq[i-1] + m;
+            if(seq[i] > max) max = seq[i];
         }
         System.out.println(max);
     }
