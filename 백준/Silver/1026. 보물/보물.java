@@ -5,8 +5,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        Integer[] A = new Integer[n];
-        Integer[] B = new Integer[n];
+        int[] A = new int[n];
+        int[] B = new int[n];
         
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=0;i<n;i++){
@@ -18,12 +18,12 @@ public class Main {
             B[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(A,(o1,o2)-> o1-o2);
-        Arrays.sort(B,(o1,o2)-> o2-o1);
+        Arrays.sort(A);
+        Arrays.sort(B);
 
         int sum = 0;
         for(int i=0;i<n;i++){
-            sum += A[i]*B[i];                
+            sum += A[i]*B[n-1-i];                
         } 
         System.out.println(sum);
     }
