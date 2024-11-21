@@ -23,11 +23,23 @@ public class Main {
         int[] merge = new int[a+b];
         int pa = 0; int pb = 0;
         for(int i=0;i<(a+b);i++){
-            int sa = pa < a ? A[pa]:1000000001;
-            int sb = pb < b ? B[pb]:1000000001;
-            if(sa < sb) pa++;
-            else pb++;
-            merge[i] = Math.min(sa,sb);               
+            if(pa == a){
+                while(pb != b){
+                    merge[i++] = B[pb++];
+                }
+            }else if(pb == b){
+                while(pa != a){
+                    merge[i++] = A[pa++];
+                }
+            }else{
+                while(pa < a && A[pa] <= B[pb]){
+                    merge[i++] = A[pa++];
+                }
+                while(pa < a && pb < b && B[pb] < A[pa]){
+                    merge[i++] = B[pb++];
+                } 
+            }                        
+            i--;
         } 
         System.out.println(Arrays.toString(merge).replace("[","").replace("]","").replace(",",""));
     }
