@@ -20,9 +20,6 @@ public class Main {
             B[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(A);
-        Arrays.sort(B);
-
         int[] merge = new int[a+b];
         int pa = 0; int pb = 0;
         for(int i=0;i<(a+b);i++){
