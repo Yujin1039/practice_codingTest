@@ -10,6 +10,41 @@
 
 자료 구조, 해시를 사용한 집합과 맵, 정렬
 
+### 틀린 이유
+
+1. 마지막 요소가 가장 많은 경우, 이에 대한 반영이 되지 않는 코드
+
+    ```java
+        int max = 0;
+        int idx = 0;
+        int cur = 0;
+        for(int i=1;i<n;i++){
+            if(arr[i] == arr[i-1]) cur++;
+            else if(cur > max) {
+                max = cur;
+                cur = 0;
+                idx = i-1;
+            }
+        }
+     ```
+   
+2. `이전 요소 ≠ 현재 요소`일때 `이전 요소의 개수(=cur) <= 지금까지 max개수`라면 cur가 초기화되지 않기 때문
+
+     ```java
+        int max = 0;
+        int idx = 0;
+        int cur = 0;
+        for(int i=1;i<n;i++){
+            if(arr[i] == arr[i-1]) cur++;
+            else if(cur > max) {
+                max = cur;
+                cur = 0;
+                idx = i-1;
+            }
+        }
+        if(cur != 0 && cur > max) idx = n-1;
+     ```
+
 ### 제출 일자
 
 2024년 11월 23일 02:19:00
