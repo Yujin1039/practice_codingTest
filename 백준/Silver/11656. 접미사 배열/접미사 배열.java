@@ -9,7 +9,7 @@ public class Main {
         
         String[] suffix = new String[n];
         for(int i=0;i<n;i++){
-            suffix[i] = word.substring(i,n);
+            suffix[i] = word.substring(i);
         }
         Arrays.sort(suffix);
         System.out.println(Arrays.toString(suffix).replace("[","").replace("]","").replace(", ","\n"));
