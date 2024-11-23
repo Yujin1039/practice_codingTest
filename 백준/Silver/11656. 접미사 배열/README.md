@@ -10,6 +10,18 @@
 
 정렬, 문자열
 
+### Arrays.sort() VS Collections.sort()
+
+- `Arrays.sort()` : QuickSort 선택 -> 최악의 경우 ***O(n²)*** 시간복잡도
+- `Collections.sort()` : MergeSort 선택 -> **항상** 시간복잡도가 ***O(n logn)***
+
+### StringBuilder - substring()
+
+- 기능: 기존 문자열을 인덱스 기준 부분 문자열로 받아옴
+- 매개변수 특징
+  1. (i,j): index가 i인 곳 ~ index가 j-1인 곳
+  2. (k): index가 k인 곳 ~ 끝까 
+
 ### 제출 일자
 
 2024년 11월 24일 00:21:22
