@@ -20,17 +20,17 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         
-        Label[] scoreArr = new Label[n];
+        LinkedList<Label> scoreArr = new LinkedList<>();
         for(int i=0;i<n;i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
             String name = st.nextToken();
             int korean = Integer.parseInt(st.nextToken());
             int english = Integer.parseInt(st.nextToken());
             int math = Integer.parseInt(st.nextToken());
-            scoreArr[i] = new Label(name,korean,english,math);
+            scoreArr.add(new Label(name,korean,english,math));
         }
 
-        Arrays.sort(scoreArr,(o1,o2)->{
+        Collections.sort(scoreArr,(o1,o2)->{
             if(o1.korean == o2.korean){
                 if(o1.english == o2.english){
                     if(o1.math == o2.math){
