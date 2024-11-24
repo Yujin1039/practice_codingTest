@@ -10,6 +10,11 @@
 
 정렬
 
+### lambda 정렬 VS Comparator 정렬
+>정렬 대상의 크기가 클수록, 정렬 조건이 복잡할수록 `lambda 정렬`이 유리
+
+**이유)** Comparator의 메서드 체이닝, reversed()메서드 → Overheead 발생가능
+
 ### 제출 일자
 
 2024년 11월 24일 17:20:56
