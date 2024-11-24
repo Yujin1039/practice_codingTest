@@ -30,10 +30,18 @@ public class Main {
             scoreArr[i] = new Label(name,korean,english,math);
         }
 
-        Arrays.sort(scoreArr,Comparator.comparingInt((Label o)->o.korean).reversed()
-                                       .thenComparingInt(o->o.english)
-                                       .thenComparing(Comparator.comparingInt((Label o) -> o.math).reversed())
-                                       .thenComparing(o->o.name));
+        Arrays.sort(scoreArr,(o1,o2)->{
+            if(o1.korean == o2.korean){
+                if(o1.english == o2.english){
+                    if(o1.math == o2.math){
+                        return o1.name.compareTo(o2.name);
+                    }
+                    return o2.math - o1.math;
+                }
+                return o1.english - o2.english;
+            }
+            return o2.korean - o1.korean;
+        });
         StringBuilder sb = new StringBuilder();
         for(Label la:scoreArr){
             sb.append(la.name).append("\n");
