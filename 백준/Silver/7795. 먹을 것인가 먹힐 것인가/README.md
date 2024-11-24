@@ -10,6 +10,26 @@
 
 이분 탐색, 정렬, 두 포인터
 
+### 이분 탐색(upper bound)
+
+기본적으로 이분 탐색 라이브러리를 lower bound를 사용하기 때문에 upper bound를 원하면 커스텀해야함
+
+`upper bound`: 같은 값이 여러 개 있을 때, 가장 오른쪽에 값 삽입
+
+```java
+    static int binarySearch(int[] a,int tmp){
+        int start = 0;
+        int end = a.length; // ✅ 마지막 인덱스+1
+        
+        while(start < end){
+            int mid = (start+end)/2;
+            if(tmp >= a[mid]) start = mid+1; // ✅ 같은 값의 경우, 해당 값 뒤쪽 배열 선택
+            else end = mid;
+        }
+        return start; // ✅ end를 사용하면, tmp가 a의 모든 요소보다 큰 경우 오류 발생
+    }
+```
+
 ### 제출 일자
 
 2024년 11월 25일 01:35:07
