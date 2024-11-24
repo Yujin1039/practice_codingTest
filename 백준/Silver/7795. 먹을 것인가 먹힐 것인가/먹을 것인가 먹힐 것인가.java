@@ -2,39 +2,43 @@ import java.io.*;
 import java.util.*;
 
 public class Main { 
-    static int getPair(long[] a,long[] b){
-        int pair = 0;
+    static int findInsertIdx(int[] a,int tmp){
+        int start = 0;
+        int end = a.length;
         
-        Arrays.sort(b);
-        for(int i=0;i<a.length;i++){
-            for(int j=0;j<b.length;j++){
-                if(a[i] <= b[j]) break;
-                pair++;
-            }
+        while(start < end){
+            int mid = (start+end)/2;
+            if(tmp >= a[mid]) start = mid+1;
+            else end = mid;
         }
-        return pair;
+        return start;
     }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(br.readLine());
+        int a; int b; int cnt;
 
         for(int i=0;i<n;i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            long[] arrA = new long[a];
-            long[] arrB = new long[b];
+            a = Integer.parseInt(st.nextToken());
+            b = Integer.parseInt(st.nextToken());
+            cnt = 0;
+            int[] arrA = new int[a];
 
             st = new StringTokenizer(br.readLine());
             for(int j=0;j<a;j++){
                 arrA[j] = Integer.parseInt(st.nextToken());
             }
+            Arrays.sort(arrA);
+            
             st = new StringTokenizer(br.readLine());
             for(int j=0;j<b;j++){
-                arrB[j] = Integer.parseInt(st.nextToken());
+                int tmp = Integer.parseInt(st.nextToken());
+                if(tmp > arrA[a-1]) continue;
+                cnt += a-findInsertIdx(arrA,tmp);                
             }
-            sb.append(getPair(arrA,arrB)).append("\n");
+            sb.append(cnt).append("\n");
         }
         System.out.println(sb);
     }
