@@ -10,6 +10,17 @@
 
 자료 구조, 해시를 사용한 집합과 맵, 정렬
 
+### 익숙하지 않은 문법 정리
+
+1. LinkedHashMap : 자료 입력순 저장이 가능한 HashMap
+2. Map 정렬(value 기준)
+
+   ① Set타입의 keySet() 반환값 → List타입으로 변환
+
+   ② Collections.sort(keyList,(o1,o2)->맵.get(o1).compareTo(맵.get(o2)));
+
+4. Collections.sort에서 직접적으로 정렬이 가능한 것은 List타입
+
 ### 제출 일자
 
 2024년 11월 24일 22:10:42
