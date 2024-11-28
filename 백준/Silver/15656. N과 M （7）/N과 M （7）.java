@@ -9,8 +9,8 @@ public class Main {
     
     static void makeSeq(int cnt){
         if(m == cnt) {
-            for(int i=0;i<m;i++){
-                sb.append(tmp[i]).append(" ");
+            for(int t:tmp){
+                sb.append(t).append(" ");
             }
             sb.append("\n");
             return;
