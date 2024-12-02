@@ -6,21 +6,20 @@ public class Main {
     static int n;
     static int m;
     static int[] num;
-    
-    static void alignNum(int start,int[] tmp){
+    static int[] tmp;
+    //                  (tmp 시작점,num 시작점)
+    static void alignNum(int start,int cur){
         if(start == m){
-            for(int i=0;i<m;i++){
-                sb.append(tmp[i]).append(" ");
+            for(int a:tmp){
+                sb.append(a).append(" ");
             }
             sb.append("\n");
             return;
         }
-        int pre = start > 0 ? tmp[start-1]:tmp[0];
-        for(int i=0;i<n;i++){
-            if(num[i] >= pre){
-                tmp[start] = num[i];
-                alignNum(start+1,tmp);
-            }
+        for(int i=cur;i<n;i++){
+            tmp[start] = num[i];
+            alignNum(start+1,cur);
+            cur++;
         }
     }
     public static void main(String[] args) throws IOException {
@@ -29,7 +28,7 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         num = new int[n];
-        int[] tmp = new int[m];
+        tmp = new int[m];
 
         st = new StringTokenizer(br.readLine());
         for(int i=0;i<n;i++){
@@ -37,7 +36,7 @@ public class Main {
         }
         Arrays.sort(num);
         
-        alignNum(0,tmp);
+        alignNum(0,0);
         System.out.println(sb);
     }    
 }
