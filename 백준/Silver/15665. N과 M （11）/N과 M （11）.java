@@ -5,7 +5,7 @@ public class Main {
     private static StringBuilder sb = new StringBuilder();
     private static int n;
     private static int m;
-    private static Set<Integer> num;
+    private static int[] num;
     private static int[] tmp;
 
     static void alignNum(int start){
@@ -17,9 +17,9 @@ public class Main {
             return;
         }
         
-        Iterator<Integer> iter = num.iterator();
-        while(iter.hasNext()){
-            tmp[start] = iter.next();
+        for(int i=1;i<=n;i++){
+            if(num[i] == num[i-1]) continue;
+            tmp[start] = num[i];
             alignNum(start+1);            
         }
     }
@@ -28,14 +28,14 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        num = new HashSet<>();
+        num = new int[n+1];
         tmp = new int[m];
 
         st = new StringTokenizer(br.readLine());
-        for(int i=0;i<n;i++){
-            num.add(Integer.parseInt(st.nextToken()));
+        for(int i=1;i<=n;i++){
+            num[i] = Integer.parseInt(st.nextToken());
         }
-
+        Arrays.sort(num);
         alignNum(0);
 
         System.out.println(sb);
