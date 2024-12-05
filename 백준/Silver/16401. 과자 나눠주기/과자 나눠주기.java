@@ -27,18 +27,17 @@ public class Main {
         }
         // 막대과자를 고르게 나눠줄 수 있는 경우
         int min = 1; int max = cookies[n-1];
-        while(max >= min){
-            int mid = (max+min)/2;
+        while(max > min){
+            int mid = (max+min+1)/2;
             
             long divide = 0;
             for(int i=n-1;i>=0;i--){
                 divide += cookies[i]/mid;
                 if (divide >= m) break;
             }
-            if(divide >= m) {
-                min = mid+1;
-            }else max = mid-1; 
+            if(divide >= m) min = mid;
+            else max = mid-1; 
         }
-        System.out.println(max);
+        System.out.println(min);
     }    
 }
