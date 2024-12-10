@@ -10,6 +10,19 @@
 
 백트래킹
 
+### 배열 중복 확인
+
+```java
+int num = 0;                            // ✅중복 확인용 변수
+for(int i = idx; i < N; i++) {
+	if(arr[i] != num) {             // ✅중복 여부 확인
+		result[depth] = arr[i];
+		num = arr[i];           // ✅같은 depth 내에서 중복이 없도록 num 업데이트
+		DFS(depth + 1, i);      // 재귀호출
+	}
+}
+```
+
 ### 제출 일자
 
 2024년 12월 10일 22:47:37
