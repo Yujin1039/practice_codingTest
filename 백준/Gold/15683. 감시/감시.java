@@ -14,6 +14,7 @@ public class Main {
             x += dx[dir];
             y += dy[dir];
             if(x < 0 || x >= n || y < 0 || y >= m || office[x][y] == 6) break;
+            else if(office[x][y] == 5) continue;
             isBlindCur[x][y] = true;
         }
     }
@@ -28,6 +29,7 @@ public class Main {
         boolean[][] isBlind = new boolean[n][m];
         isBlindCur = new boolean[n][m];
         ArrayList<int[]> cctvList = new ArrayList<>();
+        LinkedList<int[]> cctvList5 = new LinkedList<>();
         
         for(int i=0;i<n;i++){
             st = new StringTokenizer(br.readLine());
@@ -38,10 +40,26 @@ public class Main {
                     isBlind[i][j] = true;
                     min--;
                 }
-                if(num != 0 && num != 6) cctvList.add(new int[]{i,j});
+                if(num >= 1 && num <= 4) cctvList.add(new int[]{i,j});
+                else if(num == 5) cctvList5.add(new int[]{i,j});
             }
         }
 
+        while(!cctvList5.isEmpty()){
+            int[] cur = cctvList5.remove();
+            int tmpx = cur[0]; int tmpy = cur[1];
+            for(int i=0;i<4;i++){
+                int x = tmpx; int y = tmpy;
+                while(true){
+                    x += dx[i];
+                    y += dy[i];
+                    if(x < 0 || x >= n || y < 0 || y >= m || office[x][y] == 6) break;
+                    isBlind[x][y] = true;
+                    if(office[x][y] == 0) office[x][y] = 5;
+                }
+            }
+        }
+        
         int size = cctvList.size();
         for(int i=0;i<(1<<(size*2));i++){
             for(int k=0;k<n;k++){
@@ -64,11 +82,6 @@ public class Main {
                     checkCctv(cur[0],cur[1],dir);
                     checkCctv(cur[0],cur[1],(dir+1)%4);
                     checkCctv(cur[0],cur[1],(dir+2)%4);
-                }else if(office[cur[0]][cur[1]] == 5){
-                    checkCctv(cur[0],cur[1],dir);
-                    checkCctv(cur[0],cur[1],(dir+1)%4);
-                    checkCctv(cur[0],cur[1],(dir+2)%4);
-                    checkCctv(cur[0],cur[1],(dir+3)%4);
                 }
             }
             int cnt = 0;
@@ -78,8 +91,7 @@ public class Main {
                 }
             }
             min = Math.min(cnt,min);
-        }
-        
+        }        
         System.out.println(min);
 	}
 }
