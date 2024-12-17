@@ -15,19 +15,19 @@ public class Main {
         Arrays.sort(seq);
         
         int differ = 2000000000;
-        for(int i=0;i<n;i++){           
-            long target = seq[i]+m;
-            
-            int start = i; int end = n;
-            while(start < end){
-                int mid = (start+end)/2;
-                if(seq[mid] >= target){
-                    end = mid;
-                }else {
-                    start = mid + 1;
+        int pre = 0;
+        fin:
+        for(int i=0;i<n;i++){
+            int cur = seq[i];
+            for(int j=pre;j<n;j++){
+                int dif = seq[j] - cur;
+                if(dif >= m){
+                    differ = Math.min(dif,differ);
+                    pre = j;
+                    if(dif > m) break;
+                    else break fin;
                 }
             }
-            if(start < n) differ = Math.min(differ,seq[start] - seq[i]);
         }
         System.out.println(differ);
 	}
