@@ -2,22 +2,31 @@ import java.util.*;
 import java.io.*;
 
 public class Main { 
-    static String ac(String str,LinkedList<Integer> list){
+    static String ac(String str,int[] list){
         boolean isReversed = false;
+        int start = 0; int end = list.length-1;
         for(int i=0;i<str.length();i++){
             char c = str.charAt(i);
             if(c == 'R'){
                 isReversed = !isReversed;
-            }else if(list.size() == 0){
+            }else if(start > end){
                 return "error";
-            }else if(isReversed){
-                list.removeLast();
-            }else{
-                list.removeFirst();
+            }else if(isReversed) end--;
+            else start++;
+        }
+        StringBuilder sb = new StringBuilder("[");
+        if(isReversed){
+            for(int i=end;i>=start;i--){
+                sb.append(list[i]).append(",");
+                if(i == start) sb.deleteCharAt(sb.length()-1);
+            }
+        }else{
+            for(int i=start;i<=end;i++){
+                sb.append(list[i]).append(",");
+                if(i == end) sb.deleteCharAt(sb.length()-1);
             }
         }
-        if(isReversed) Collections.reverse(list);
-        return list.toString().replace(", ",",");
+        return sb.append("]").toString();
     } 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
@@ -26,10 +35,10 @@ public class Main {
         for(int i=0;i<test;i++){
             String str = br.readLine();
             int len = Integer.parseInt(br.readLine());
-            LinkedList<Integer> list = new LinkedList<>();
+            int[] list = new int[len];
             StringTokenizer st = new StringTokenizer(br.readLine(),"[,]");
             for(int j=0;j<len;j++){
-                list.add(Integer.parseInt(st.nextToken()));
+                list[j] = Integer.parseInt(st.nextToken());
             }
             sb.append(ac(str,list)).append("\n");
         }
