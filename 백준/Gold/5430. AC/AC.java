@@ -14,19 +14,19 @@ public class Main {
             }else if(isReversed) end--;
             else start++;
         }
+        if(start > end) return "[]";
+        
         StringBuilder sb = new StringBuilder("[");
         if(isReversed){
             for(int i=end;i>=start;i--){
                 sb.append(list[i]).append(",");
-                if(i == start) sb.deleteCharAt(sb.length()-1);
             }
         }else{
             for(int i=start;i<=end;i++){
                 sb.append(list[i]).append(",");
-                if(i == end) sb.deleteCharAt(sb.length()-1);
             }
         }
-        return sb.append("]").toString();
+        return sb.deleteCharAt(sb.length()-1).append("]").toString();
     } 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
