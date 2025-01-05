@@ -6,14 +6,13 @@ public class Main {
     private static char[][] layout;
     private static boolean[] isVisited;
     private static int[] sList;
-    private static char[] tmp;
     private static int cases = 0;
 
-    static int bfs(){
+    static int bfs(int start){
         LinkedList<Integer> list = new LinkedList<>();
         boolean[] isChecked = new boolean[25];
-        list.add(sList[0]);
-        isChecked[sList[0]] = true;
+        list.add(start);
+        isChecked[start] = true;
         while(!list.isEmpty()){
             int cur = list.poll();
             for(int i=0;i<4;i++){
@@ -25,7 +24,10 @@ public class Main {
 
                 isChecked[idx] = true;
                 for(int a:sList){
-                    if(a == idx) list.add(idx);
+                    if(a == idx) {
+                        list.add(idx);
+                        break;
+                    }
                 }                
             }
         }
@@ -34,22 +36,18 @@ public class Main {
         }
         return 1;
     }
-    static void findPrincess(int start,int len){
+    static void findPrincess(int start,int len,int s){
         if(len == 7){
-            int tmpc = 0;
-            for(char c:tmp){
-                if(c == 'S') tmpc++;
-            }
-            if(tmpc >= 4) cases += bfs();
+            if(s >= 4) cases += bfs(sList[0]);
             return;            
         }
         for(int i=start;i<25;i++){
             if(!isVisited[i]) {
                 int j = i/5; int k = i%5;
-                tmp[len] = layout[j][k];
                 sList[len] = i;
                 isVisited[i] = true;
-                findPrincess(i,len+1);
+                if(layout[j][k] == 'S') findPrincess(i,len+1,s+1);
+                else findPrincess(i,len+1,s);
                 isVisited[i] = false;
             }
         }
@@ -61,10 +59,9 @@ public class Main {
         for(int i=0;i<5;i++){
             layout[i] = br.readLine().toCharArray();
         }
-        tmp = new char[7];
         isVisited = new boolean[25];
         sList = new int[7];
-        findPrincess(0,0);
+        findPrincess(0,0,0);
         System.out.println(cases);
     }
 }
