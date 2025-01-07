@@ -10,6 +10,28 @@
 
 수학, 정수론, 소수 판정, 에라토스테네스의 체
 
+### 헤맨 부분
+
+두 코드의 차이가 뭔지 모르겠음
+
+```java
+for(int p : prime){
+ for(long ap = p*p;ap <= end;ap *= p){
+  if(ap >= start) result++;
+  if(ap > Long.MAX_VALUE / p) break;                
+ }            
+}
+```
+```java
+for (int p : prime) {
+ long ap = (long) p * p;
+ while (ap <= end) {
+  if (ap >= start) result++;
+  if (ap > Long.MAX_VALUE / p) break;
+  ap *= p;
+ }
+}
+```
 ### 제출 일자
 
 2025년 1월 7일 22:32:46
