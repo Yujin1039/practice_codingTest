@@ -23,10 +23,8 @@ public class Main {
                 first = attr[cur]; second = attr[last];
             }
 
-            if(sub == 0){
-                System.out.println(first+" "+second);
-                return;
-            }else if(sub < 0) cur++;
+            if(sub == 0) break;
+            else if(sub < 0) cur++;
             else last--;
         }
         System.out.println(first+" "+second);
