@@ -1,4 +1,11 @@
--- 코드를 입력하세요
+-- 테이블을 세로로 통합하기
+/*
+    select문 + UNION ALL + select문
+*/
+-- 테이블 통합시, 일치하지 않는 컬럼 병합하기
+/*
+    `NULL AS 알리아스`
+*/
 SELECT 
     TO_CHAR(SALES_DATE,'YYYY-MM-DD') SALES_DATE,
     PRODUCT_ID,
