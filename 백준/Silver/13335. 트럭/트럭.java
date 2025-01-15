@@ -18,22 +18,19 @@ public class Main {
         int time = 1; int idx = 1;
         int bridgeSum = truck[0];
         Queue<int[]> bridge = new LinkedList<>();
-        bridge.add(new int[]{truck[0],1});
+        bridge.add(new int[]{truck[0],w});
         
         while(!bridge.isEmpty()){
-            Iterator<int[]> iter = bridge.iterator();
-            while(iter.hasNext()){
-                int[] cur = iter.next();
-                if(cur[1] == w) {
-                    bridgeSum -= cur[0];
-                    iter.remove();
-                }else cur[1]++;
+            int[] cur = bridge.peek();
+            if(cur[1] == time) {
+                bridgeSum -= cur[0];
+                bridge.remove();
             }
-            time++;
             if(bridge.size() < w && idx < n && bridgeSum + truck[idx] <= l){
                 bridgeSum += truck[idx];
-                bridge.add(new int[]{truck[idx++],1});
+                bridge.add(new int[]{truck[idx++],w+time});
             }
+            time++;
         }
         System.out.println(time);
     }
