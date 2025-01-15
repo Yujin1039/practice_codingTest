@@ -6,7 +6,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken()); // 지나갈 트럭 수
-        int w = Integer.parseInt(st.nextToken()); // 다리 위로 한번에 지나갈 수 있는 트럭 수
+        int w = Integer.parseInt(st.nextToken()); // 다리 길이
         int l = Integer.parseInt(st.nextToken()); // 다리 하중
         
         int[] truck = new int[n]; 
@@ -30,8 +30,7 @@ public class Main {
                 }else cur[1]++;
             }
             time++;
-            if(bridge.size() < w && bridgeSum < l && idx < n){
-                if(bridgeSum + truck[idx] > l) continue;
+            if(bridge.size() < w && idx < n && bridgeSum + truck[idx] <= l){
                 bridgeSum += truck[idx];
                 bridge.add(new int[]{truck[idx++],1});
             }
