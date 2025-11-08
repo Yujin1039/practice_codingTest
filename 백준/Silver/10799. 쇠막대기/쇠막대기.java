@@ -1,22 +1,20 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
-    
+public class Main {    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         char[] stick = br.readLine().toCharArray();
-        Stack<Character> stack = new Stack<>();
-        stack.add('(');
+        int parentheses = 1;
         int pieces = 0;
 
         for(int i=1;i<stick.length;i++){
             if(stick[i] == ')'){
-                stack.pop();
-                if(stick[i-1] == '(') pieces += stack.size();
+                parentheses--;
+                if(stick[i-1] == '(') pieces += parentheses;
                 else pieces++;
             }else{
-                stack.add(stick[i]);
+                parentheses++;
             }
         }
         System.out.println(pieces);
