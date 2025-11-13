@@ -9,7 +9,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         
         int n = Integer.parseInt(br.readLine());
-        Queue<Integer> cards = new LinkedList<>();
+        Queue<Integer> cards = new ArrayDeque<>();
 
         for(int i=1; i<n+1; i++){
             cards.offer(i);
