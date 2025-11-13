@@ -17,26 +17,28 @@ public class Main {
             
             StringTokenizer st = new StringTokenizer(br.readLine()); 
             Queue<int[]> queue = new LinkedList<>();
-            List<Integer> max = new LinkedList<>();
+            int[] max = new int[N];
             
             for(int j=0; j<N; j++){
                 int prior = Integer.parseInt(st.nextToken());
                 queue.offer(new int[]{prior, j});
-                max.add(prior);
+                max[j] = prior;
             }
-            max.sort(Comparator.reverseOrder());
+            Arrays.sort(max);
             int print = 0;
+            int maxIdx = N-1;
 
-            while (queue.peek()[1] != M || queue.peek()[0] != max.get(0)) {
-                while (queue.peek()[0] != max.get(0)) {
+            while (true) {
+                int[] cur = queue.peek();
+                if(cur[0] != max[maxIdx]){
                     queue.offer(queue.poll());
-                }
-                max.remove(0);
-                if(queue.peek()[1] == M) break;
-                print++;                                
-                queue.poll();                
+                } else{
+                    maxIdx--;
+                    print++;                                
+                    queue.poll();
+                    if(cur[1] == M) break;                    
+                }                                
             } 
-            print++;
             sb.append(print+"\n");
         }
         System.out.println(sb.toString());
