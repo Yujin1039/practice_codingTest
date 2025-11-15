@@ -2,53 +2,46 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static List<Queue<String>> parrots;
-    static Queue<String> sentence;
+    static List<String[]> parrots;
+    static List<Integer> curIdx;
+    static String[] sentence;
+    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int n = Integer.parseInt(br.readLine());
         parrots = new ArrayList<>();
-        StringTokenizer st;
+        curIdx = new ArrayList<>();
         
-        for(int i=0; i<n;i++){
-            st = new StringTokenizer(br.readLine());   
-            parrots.add(mkQueue(st));
+        for(int i=0; i<n;i++){   
+            parrots.add(br.readLine().split(" "));
+            curIdx.add(0);
         }
         
-        sentence = mkQueue(new StringTokenizer(br.readLine()));
+        sentence = br.readLine().split(" ");
         
         System.out.println(isPossible());
     }
 
-    public static Queue<String> mkQueue(StringTokenizer st){
-        Queue<String> queue = new ArrayDeque<>();
-        
-        while(st.hasMoreTokens()){
-            queue.offer(st.nextToken());
-        }
-        return queue;
-    }
-
     public static String isPossible(){
-        while (!sentence.isEmpty()) {
-            String cur = sentence.peek();
+        for (int i=0; i<sentence.length; i++) {
+            String cur = sentence[i];
+            boolean flag = true;
 
-            for(int i=0; i<parrots.size(); i++){
-                Queue<String> parrot = parrots.get(i);
-                if(!parrot.isEmpty() && parrot.peek().equals(cur)){
-                    parrot.poll();
-                    sentence.poll();
+            for(int j=0; j<parrots.size(); j++){
+                String[] parrot = parrots.get(j);
+                int idx = curIdx.get(j);
+                if(parrot.length != idx && parrot[idx].equals(cur)){
+                    curIdx.set(j, idx+1);
+                    flag = false;
                     break;
                 }
             }
-            if(!sentence.isEmpty() && sentence.peek().equals(cur)) return "Impossible";
+            
+            if(flag) return "Impossible";
         }
 
-        if(!sentence.isEmpty()) return "Impossible";
-
         for(int i=0; i<parrots.size(); i++){
-            if(parrots.get(i).size() != 0) return "Impossible";
+            if(parrots.get(i).length != curIdx.get(i)) return "Impossible";
         }
         return "Possible";
     }
