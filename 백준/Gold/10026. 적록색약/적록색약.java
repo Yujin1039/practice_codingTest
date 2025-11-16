@@ -1,64 +1,78 @@
 import java.util.*;
 import java.io.*;
-    
-public class Main { 
-    static int[][] xy = new int[][]{{1,0,-1,0},{0,1,0,-1}};
-    static Queue<int[]> queue = new LinkedList<>();
-    static char[][] pic;
-    static boolean[][] vis;
-    static int n;
 
-    public static void bfs(int j, int k){
-        queue.add(new int[]{j,k});
-        vis[j][k] = true;
-                    
-        while(!queue.isEmpty()){
-            int[] cur = queue.poll();               
-            for(int i=0;i<4;i++){
-               int cx = cur[0] + xy[0][i];
-               int cy = cur[1] + xy[1][i];
-               
-               if(cx < 0 || cx >= n || cy < 0 || cy >= n || vis[cx][cy]) continue;
-               
-               if(pic[cx][cy] == pic[cur[0]][cur[1]]){
-                   queue.add(new int[]{cx,cy});
-                   vis[cx][cy] = true; 
-               }                
-           }   
-        }
-    }
+public class Main {
+    static int[][] dxdy = new int[][]{{0,1,0,-1},{1,0,-1,0}};
+    static int n;
+    static char[][] area;
+    static boolean[][] isVisited;
+    static ArrayDeque<int[]> cord;
     
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));       
-        n = Integer.parseInt(br.readLine());
-        pic = new char[n][n];
-        for(int i=0;i<n;i++){
-            pic[i] = br.readLine().toCharArray();
-        }
-
-        vis = new boolean[n][n];
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
-        int vision = 0; int visionN = 0;
+        n = Integer.parseInt(br.readLine());
+        area = new char[n][n];
 
-        for(int j=0;j<n;j++){
-            for(int k=0;k<n;k++){
-                if(!vis[j][k]){
-                    bfs(j,k);
-                    vision++;                    
+        for(int i=0; i<n; i++){
+            String line = br.readLine();
+            for(int j=0; j<n; j++){
+                area[i][j] = line.charAt(j);
+            }
+        }
+
+        // 정상인 기준 영역 수
+        isVisited = new boolean[n][n];        
+        cord = new ArrayDeque<>();
+        int normalArea = 0;
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(!isVisited[i][j]) {
+                    cord.add(new int[]{i,j});
+                    bfs(false);
+                    normalArea++;
                 }
-                if(pic[j][k] == 'G') pic[j][k] = 'R';
             }
         }
 
-        vis = new boolean[n][n];
-        for(int j=0;j<n;j++){
-            for(int k=0;k<n;k++){
-                if(!vis[j][k]){
-                    bfs(j,k);
-                    visionN++;
-                }                
+        // 적록색약인 기준 영역 수
+        isVisited = new boolean[n][n];        
+        cord = new ArrayDeque<>();
+        int abnormalArea = 0;
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(!isVisited[i][j]) {
+                    cord.add(new int[]{i,j});
+                    bfs(true);
+                    abnormalArea++;
+                }
+            }
+        }       
+        System.out.println(normalArea+" "+abnormalArea);
+    }
+
+    static void bfs(boolean isAbnormal){
+        while(!cord.isEmpty()){
+            int[] cur = cord.poll();
+
+            for(int i=0; i<4; i++){
+                int x = cur[0] + dxdy[0][i];
+                int y = cur[1] + dxdy[1][i];
+
+                if(x < 0 || x >= n || y < 0 || y >= n || isVisited[x][y]) continue;
+
+                if(isAbnormal){
+                    if((area[cur[0]][cur[1]] == 'B' && area[x][y] != 'B') 
+                       || (area[cur[0]][cur[1]] == 'G' && area[x][y] == 'B') || (area[cur[0]][cur[1]] == 'R' && area[x][y] == 'B')) continue;
+                } else {
+                    if(area[x][y] != area[cur[0]][cur[1]]) continue;
+                }
+
+                cord.add(new int[]{x,y});
+                isVisited[x][y] = true;
             }
         }
-        System.out.println(vision+" "+visionN);
-    }        
+    }
 }
