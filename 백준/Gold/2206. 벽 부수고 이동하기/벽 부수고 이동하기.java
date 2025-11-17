@@ -1,53 +1,64 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {   
-    static int[][] xy = new int[][]{{1,0,-1,0},{0,1,0,-1}};
+public class Main {
+    static int[][] dxdy = new int[][]{{0,1,0,-1},{1,0,-1,0}};
+    static int N,M;
+    static int[][] map;
+    static int[][][] path;
+    static ArrayDeque<int[]> cord;
+    
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));  
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-
-        int[][] map = new int[n][m];
-        for(int i=0;i<n;i++){
-            String str = br.readLine(); 
-            for(int j=0;j<m;j++){
-                map[i][j] = str.charAt(j)-'0';
-            }
-        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
-        int[][][] visitNum = new int[n][m][2];
-        visitNum[0][0][0] = 1;
-        Queue<int[]> list = new LinkedList<>();
-        list.add(new int[]{0,0,0});
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        map = new int[N][M];
+        path = new int[N][M][2];        
+        cord = new ArrayDeque<>();
 
-        while(!list.isEmpty()){
-            int[] cur = list.poll();
-
-            if(cur[0] == n-1 && cur[1] == m-1){
-                System.out.println(visitNum[cur[0]][cur[1]][cur[2]]);
-                return;
-            }
-            for(int i=0;i<4;i++){
-                int x = cur[0] + xy[0][i];
-                int y = cur[1] + xy[1][i];
-
-                if(x < 0 || x >= n || y < 0 || y >= m) continue;
-
-                //벽을 만난 적이 없거나 벽을 부순 적이 있지만 벽이 없는 곳에 도착한 경우
-                if(map[x][y] == 0 && visitNum[x][y][cur[2]] == 0){
-                    visitNum[x][y][cur[2]] = visitNum[cur[0]][cur[1]][cur[2]] + 1;
-                    list.add(new int[]{x,y,cur[2]});
-                }
-
-                // 처음 벽에 도착한 경우
-                if(map[x][y] == 1 && cur[2] == 0 && visitNum[x][y][1] == 0){
-                    visitNum[x][y][1] = visitNum[cur[0]][cur[1]][0] + 1;
-                    list.add(new int[]{x,y,1});
-                }
+        for(int i=0; i<N; i++){
+            String line = br.readLine();
+            for(int j=0; j<M; j++){
+                map[i][j] = line.charAt(j)-48;
             }
         }
-        System.out.println(-1);        
+
+        cord.add(new int[]{0,0,0});
+        path[0][0][0] = 1;
+        bfs();
+        
+        if(path[N-1][M-1][0] == 0 && path[N-1][M-1][1] == 0){
+            System.out.println(-1);
+        } else if(path[N-1][M-1][0] == 0){
+            System.out.println(path[N-1][M-1][1]);
+        } else if(path[N-1][M-1][1] == 0){
+            System.out.println(path[N-1][M-1][0]);
+        } else {
+            System.out.println(Math.min(path[N-1][M-1][0],path[N-1][M-1][1]));
+        }        
+    }
+
+    static void bfs(){
+        while(!cord.isEmpty()){
+            int[] cur = cord.poll();
+
+            for(int i=0; i<4; i++){
+                int x = cur[0] + dxdy[0][i];
+                int y = cur[1] + dxdy[1][i];
+                
+                if(x < 0 || x >= N || y < 0 || y >= M) continue;
+                if(map[x][y] == 1 && cur[2] > 0) continue;
+
+                if(map[x][y] == 1) {
+                    path[x][y][1] = path[cur[0]][cur[1]][0]+1;
+                    cord.add(new int[]{x,y,1});
+                } else if(map[x][y] == 0 && path[x][y][cur[2]] == 0){
+                    path[x][y][cur[2]] = path[cur[0]][cur[1]][cur[2]]+1;
+                    cord.add(new int[]{x,y,cur[2]});
+                }                
+            }
+        }
     }
 }
