@@ -1,30 +1,37 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
+import java.math.*;
 
-public class Main { 
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int k = Integer.parseInt(st.nextToken());
-        int n = Integer.parseInt(st.nextToken());
-        int[] lanC = new int[k];
-
-        long max = 0; long min = 1; long mid = 0;
-        for(int i=0;i<k;i++){
-            lanC[i] = Integer.parseInt(br.readLine());
-            max += lanC[i];
+        int K = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
+        
+        int[] cable = new int[K];
+        long end = 0;
+        for(int i=0; i<K; i++){
+            int lan = Integer.parseInt(br.readLine());
+            cable[i] = lan;
+            end += lan;
         }
-        max /= n;
-
-        while(min < max){
-            mid = (min+max+1)/2;
-            int sum = 0;
-            for(int i=0;i<k;i++){
-                sum += lanC[i]/mid;
+        end /= N;
+        
+        long start = 1;
+        while(start < end){
+            long mid = start+(end-start+1)/2;            
+            long num = 0;            
+            for(int i=0; i<K; i++){
+                num += cable[i]/mid;
+            }            
+            if(num >= N){
+                start = mid;
+            } else {
+                end = mid-1;                
             }
-            if(sum >= n) min = mid;
-            else max = mid-1;
         }
-        System.out.println(min);
-    }    
+        System.out.println(start);
+    }
 }
