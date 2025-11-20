@@ -30,10 +30,10 @@ public class Main {
                 if(arr[i] > mid) temp += (long) (arr[i]-mid);
             }            
             if(temp >= M){
-                start = mid+1;                
+                start = mid+1;
+                result = mid;
             } else {
                 end = mid-1;
-                result = end;
             }
         }
         System.out.println(result);
