@@ -1,35 +1,41 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
+import java.math.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
-        long M = Long.parseLong(st.nextToken());
-        
-        int[] trees = new int[N];
+        int M = Integer.parseInt(st.nextToken());
+        int[] arr = new int[N];
+
         st = new StringTokenizer(br.readLine());
         int max = 0;
-        for(int i=0;i<N;i++){
+        for(int i=0; i<N; i++){
             int tree = Integer.parseInt(st.nextToken());
-            trees[i] = tree;
-            if(tree > max) max = tree;
+            arr[i] = tree;
+            max = tree > max ? tree:max;
         }
 
-        int min = 0;               
-        while(max >= min){
-            int mid = (min+max)/2;  
-            long meter = 0;            
-            for(int tree:trees){
-                meter += tree > mid ? tree-mid:0;
+        int result = 0;
+        int start = 0;
+        int end = max;
+        while(start <= end){
+            int mid = start+(end-start)/2;
+            long temp = 0;
+            
+            for(int i=0; i<N; i++){
+                if(arr[i] > mid) temp += (long) (arr[i]-mid);
             }            
-            if(meter >= M){
-                min = mid+1;
-            }else if(meter < M){
-                max = mid-1;
+            if(temp >= M){
+                start = mid+1;                
+            } else {
+                end = mid-1;
+                result = end;
             }
-        }        
-        System.out.println(max);
-	}
+        }
+        System.out.println(result);
+    }
 }
