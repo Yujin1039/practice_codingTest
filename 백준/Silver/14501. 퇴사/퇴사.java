@@ -1,25 +1,26 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main { 
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        int[][] counsel = new int[n+1][3];
+        StringTokenizer st;
+        int N = Integer.parseInt(br.readLine());
+        int[][] consult = new int[N+1][2];
 
-        for(int i=0;i<n;i++){
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int t = Integer.parseInt(st.nextToken());
-            int p = Integer.parseInt(st.nextToken());
-            counsel[i] = new int[]{t,p,0};
+        for(int i=0; i<N; i++){
+            st = new StringTokenizer(br.readLine());
+            consult[i][0] = Integer.parseInt(st.nextToken());
+            consult[i][1] = Integer.parseInt(st.nextToken());
         }
 
-        for(int i=n-1;i>=0;i--){
-            int t = counsel[i][0]; 
-            int p = counsel[i][1];
-            if(t + i <= n) counsel[i][2] = p + counsel[i+t][2];            
-            counsel[i][2] = Math.max(counsel[i][2],counsel[i+1][2]);
+        int[][] dp = new int[N+1][2];
+
+        for (int i=N-1; i>=0; i--) {
+            if(consult[i][0]+i <= N) dp[i][0] = consult[i][1] + Math.max(dp[consult[i][0]+i][0], dp[consult[i][0]+i][1]);
+            dp[i][1] = Math.max(dp[i+1][0], dp[i+1][1]);
         }
-        System.out.println(counsel[0][2]);
+
+        System.out.println(Math.max(dp[0][0],dp[0][1]));
     }
 }
