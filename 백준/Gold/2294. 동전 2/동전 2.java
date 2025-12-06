@@ -22,9 +22,9 @@ public class Main {
         }
 
         for(int i=1; i<=sum; i++){
-            for(int j=0; j<coins.size(); j++){
-                if(i > coins.get(j) && dp[i-coins.get(j)] != Integer.MAX_VALUE){
-                    dp[i] = Math.min(dp[i],dp[i-coins.get(j)]+1);
+            for(int coin: coins){
+                if(i > coin && dp[i-coin] != Integer.MAX_VALUE){
+                    dp[i] = Math.min(dp[i],dp[i-coin]+1);
                 }
             }
         }
