@@ -9,20 +9,22 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int sum = Integer.parseInt(st.nextToken());
         
-        int[] coins = new int[n];
+        List<Integer> coins = new ArrayList<>();
         int[] dp = new int[sum+1];
         Arrays.fill(dp,Integer.MAX_VALUE);
 
         for(int i=0; i<n; i++){
             int coin = Integer.parseInt(br.readLine());
-            coins[i] = coin;
-            if(coin <= sum) dp[coin] = 1;
+            if(coin <= sum) {
+                coins.add(coin);
+                dp[coin] = 1;
+            }
         }
 
         for(int i=1; i<=sum; i++){
-            for(int j=0; j<n; j++){
-                if(i > coins[j] && dp[i-coins[j]] != Integer.MAX_VALUE){
-                    dp[i] = Math.min(dp[i],dp[i-coins[j]]+1);
+            for(int j=0; j<coins.size(); j++){
+                if(i > coins.get(j) && dp[i-coins.get(j)] != Integer.MAX_VALUE){
+                    dp[i] = Math.min(dp[i],dp[i-coins.get(j)]+1);
                 }
             }
         }
