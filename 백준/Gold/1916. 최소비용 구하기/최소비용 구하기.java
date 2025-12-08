@@ -43,10 +43,10 @@ public class Main {
 
             dis[start] = cur[0];
             
-            for(int i=0; i<adj.get(start).size(); i++){
-                int end = adj.get(start).get(i)[1];
-                if(dis[end] > dis[start]+adj.get(start).get(i)[0]){
-                    dis[end] = dis[start]+adj.get(start).get(i)[0];
+            for(int[] edge : adj.get(start)){
+                int end = edge[1];
+                if(dis[end] > dis[start]+edge[0]){
+                    dis[end] = dis[start]+edge[0];
                     queue.add(new int[]{dis[end],end});
                 }                
             }       
