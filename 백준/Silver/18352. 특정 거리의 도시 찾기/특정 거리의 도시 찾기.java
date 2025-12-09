@@ -35,10 +35,12 @@ public class Main {
             int[] cur = queue.poll();
             int start = cur[1];
 
-            for(int i=0; i<adj.get(start).size(); i++){
-                if(dis[adj.get(start).get(i)] > cur[0]+1){
-                    dis[adj.get(start).get(i)] = cur[0]+1;
-                    queue.add(new int[]{cur[0]+1,adj.get(start).get(i)});
+            if(dis[start] > K) continue;
+
+            for(int u: adj.get(start)){
+                if(dis[u] > cur[0]+1){
+                    dis[u] = cur[0]+1;
+                    queue.add(new int[]{cur[0]+1,u});
                 }
             }  
         }
