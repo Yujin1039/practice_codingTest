@@ -14,7 +14,7 @@ public class Main {
         int[] dis = new int[200_002]; // 최단시간 배열
         Arrays.fill(dis,INF);
 
-        PriorityQueue<int[]> queue = new PriorityQueue<>((o1,o2) -> o1[0]-o2[0]);
+        ArrayDeque<int[]> queue = new ArrayDeque<>();
         dis[N] = 0;
         queue.add(new int[]{0,N});
         
@@ -25,19 +25,19 @@ public class Main {
 
             if(dis[start] < cost) continue;
 
-            if(start*2 < dis.length && dis[start*2] > cost) {
-                dis[start*2] = cost;
-                queue.add(new int[]{cost,start*2});
+            if(start*2 < dis.length && dis[start*2] > dis[start]) {
+                dis[start*2] = dis[start];
+                queue.addFirst(new int[]{0,start*2});
             }
-            if(start > 0 && dis[start-1] > cost+1) {
-                dis[start-1] = cost+1;
-                queue.add(new int[]{cost+1,start-1});
+            if(start > 0 && dis[start-1] > dis[start]+1) {
+                dis[start-1] = dis[start]+1;
+                queue.add(new int[]{1,start-1});
             }
-            if(start < dis.length-1 && dis[start+1] > cost+1) {
-                dis[start+1] = cost+1;
-                queue.add(new int[]{cost+1,start+1});
+            if(start < dis.length-1 && dis[start+1] > dis[start]+1) {
+                dis[start+1] = dis[start]+1;
+                queue.add(new int[]{1,start+1});
             }   
-        }        
+        }      
         System.out.println(dis[K]);
     }
 }
