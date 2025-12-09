@@ -21,9 +21,6 @@ public class Main {
         while (!queue.isEmpty()) {
             int[] cur = queue.poll();
             int start = cur[1];
-            int cost = cur[0];
-
-            if(dis[start] < cost) continue;
 
             if(start*2 < dis.length && dis[start*2] > dis[start]) {
                 dis[start*2] = dis[start];
@@ -37,7 +34,7 @@ public class Main {
                 dis[start+1] = dis[start]+1;
                 queue.add(new int[]{1,start+1});
             }   
-        }      
+        }        
         System.out.println(dis[K]);
     }
 }
