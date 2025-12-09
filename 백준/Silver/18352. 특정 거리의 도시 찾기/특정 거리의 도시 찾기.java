@@ -27,7 +27,7 @@ public class Main {
             adj.get(start).add(end);
         }
 
-        PriorityQueue<int[]> queue = new PriorityQueue<>((o1,o2) -> o1[0]-o2[0]);
+        ArrayDeque<int[]> queue = new ArrayDeque<>();
         dis[X] = 0;
         queue.add(new int[]{0,X});
         
