@@ -1,33 +1,21 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
-		
-        int N= Integer.parseInt(br.readLine());
-        while(N > 0){
-            int C = Integer.parseInt(br.readLine());
-            int quarter = 0; int dime = 0; int nickel = 0; int penny = 0;
-            while(C > 0){
-                if(C >= 25){
-                    quarter = C/25;
-                    C %= 25;
-                }else if(C >= 10){
-                    dime = C/10;
-                    C %= 10;
-                }else if(C >= 5){
-                    nickel = C/5;
-                    C %= 5;
-                }else{
-                    penny = C;
-                    C = 0;
-                }
+        int[] coin = new int[]{25, 10, 5, 1};
+        
+        for(int i=0; i<N; i++){
+            int change = Integer.parseInt(br.readLine());
+            for(int c:coin){
+                sb.append(change/c+" ");
+                change %= c;
             }
-            sb.append(quarter+" "+dime+" "+nickel+" "+penny+"\n");
-            N--;
+            sb.append("\n");
         }
-		System.out.println(sb);		
-	}
+        System.out.println(sb.toString());
+    }
 }
