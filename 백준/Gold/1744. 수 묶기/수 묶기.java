@@ -1,36 +1,45 @@
 import java.util.*;
 import java.io.*;
+import java.util.Collections.*;
 
-public class Main { 
-    static int max = 0;
-    static void bindNum(List<Integer> list,int pre){
-        for(int num1:list){
-            if(pre == 0) pre += num1;
+public class Main {   
+    static int bindList(List<Integer> list){
+        int sum = 0;
+        boolean isBinded = false;
+        
+        for(int i=list.size()-1; i>0; i--){
+            int plus = list.get(i)+list.get(i-1);
+            int multiple = list.get(i)*list.get(i-1);
+
+            if(plus >= multiple) sum += list.get(i);
             else{
-                max += Math.max(pre * num1,pre+num1);
-                pre = 0;
+                sum += multiple;
+                if(i == 1) isBinded = true;
+                i--;
             }
         }
-        max += pre;
+        if(!isBinded) sum += list.get(0);
+        
+        return sum;
     }
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
-        int n = Integer.parseInt(br.readLine()); 
-        
-        List<Integer> negative = new ArrayList<>();
-        List<Integer> positive = new ArrayList<>();
-        for(int i=0;i<n;i++){
-            int num = Integer.parseInt(br.readLine());
-            if(num > 0) positive.add(num);
-            else negative.add(num);
-        }
-        Collections.sort(negative);
-        Collections.sort(positive);
-        Collections.reverse(positive);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        List<Integer> pos = new ArrayList<>();
+        List<Integer> neg = new ArrayList<>();
 
-        bindNum(negative,0);
-        bindNum(positive,0);
+        for(int i=0; i<N; i++){
+            int num = Integer.parseInt(br.readLine());
+            if(num > 0) pos.add(num);
+            else neg.add(num);
+        }
+        Collections.sort(pos);
+        Collections.sort(neg, Collections.reverseOrder());
+
+        int sum = 0;
+        if(pos.size() > 0) sum += bindList(pos);
+        if(neg.size() > 0) sum += bindList(neg);       
         
-        System.out.println(max);
+        System.out.println(sum);
     }
 }
