@@ -31,21 +31,31 @@ public class Main {
             }            
         }
 
+        // 지출 기록
+        int[][] minCost = new int[N+1][T+1];
+        for(int i=0; i<=N; i++){
+            Arrays.fill(minCost[i], Integer.MAX_VALUE);
+        }
         // 지출 계산
         int min = -1;
         PriorityQueue<int[]> queue = new PriorityQueue<>((o1,o2) -> o1[2]-o2[2]);
         queue.add(new int[]{1, 0, 0});
         while (!queue.isEmpty()) {
             int[] cur = queue.poll();
+
+            if(cur[2] > minCost[cur[0]][cur[1]]) continue;
             
-            if(cur[0] == N){
+            if(cur[0] == N) {
                 min = cur[2];
                 break;
             }
             
             List<int[]> next = adj.get(cur[0]);
             for (int[] node : next) {
-                if(cur[1]+node[1] <= T && cur[2]+node[2] <= M){       
+                int time = cur[1]+node[1];
+                int money = cur[2]+node[2];
+                if(time <= T && money <= M && money < minCost[node[0]][time]){     
+                    minCost[node[0]][time] = money;
                     queue.add(new int[]{node[0], cur[1]+node[1], cur[2]+node[2]});
                 }
             }
