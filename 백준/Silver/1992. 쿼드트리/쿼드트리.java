@@ -5,7 +5,7 @@ public class Main {
     static int[][] video;
     static StringBuilder densedStr;
 
-    static void quadTree(int x, int y, int n, int dir){
+    static void quadTree(int x, int y, int n){
         boolean isQuad = true;
         int start = video[x][y];
         loop:
@@ -22,10 +22,10 @@ public class Main {
             densedStr.append(start);
         } else {
             densedStr.append("(");
-            quadTree(x, y, n/2, 1);                    
-            quadTree(x, y+n/2, n/2, 2);
-            quadTree(x+n/2, y, n/2, 3);
-            quadTree(x+n/2, y+n/2, n/2, 4); 
+            quadTree(x, y, n/2);                    
+            quadTree(x, y+n/2, n/2);
+            quadTree(x+n/2, y, n/2);
+            quadTree(x+n/2, y+n/2, n/2); 
             densedStr.append(")");
         }
     }
@@ -43,7 +43,7 @@ public class Main {
         }
 
         densedStr = new StringBuilder();
-        quadTree(0, 0, N, 1);
+        quadTree(0, 0, N);
         System.out.println(densedStr.toString());
     }
 }
