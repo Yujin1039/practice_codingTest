@@ -9,6 +9,8 @@ public class Main {
     static boolean[] to;
 
     static void dfs(int prev, int cnt, int curCost){
+        if(curCost >= cost) return;
+        
         if(cnt == N){
             cost = Math.min(cost, curCost);
             return;
