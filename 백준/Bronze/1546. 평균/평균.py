@@ -1,0 +1,5 @@
+a = int(input())
+li = list(map(int,input().split()))
+sum = sum(li)
+max = max(li)
+print(sum/max*100/a)
