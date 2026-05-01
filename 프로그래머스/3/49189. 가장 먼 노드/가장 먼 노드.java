@@ -21,7 +21,7 @@ class Solution {
         Arrays.fill(dis, Integer.MAX_VALUE);
         dis[1] = 0;
         
-        PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)->o1[0]-o2[0]);
+        ArrayDeque<int[]> pq = new ArrayDeque<>();
         pq.add(new int[]{0,1});
         
         while(!pq.isEmpty()){
