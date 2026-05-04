@@ -1,29 +1,19 @@
+import java.util.*;
+
 class Solution {
-    public static char toUpper(char c){
-        if(c >= 'a' && c <= 'z'){
-            return (char) (c-32);
-        }
-        return c;
-    }
-    
-    public static char toLower(char c){
-        if(c >= 'A' && c <= 'Z'){
-            return (char) (c+32);
-        }
-        return c;
-    }
     public String solution(String s) {
-        String answer = "";
+        s = s.toLowerCase();
+        StringBuilder sb = new StringBuilder();
+        sb.append(s.substring(0,1).toUpperCase());
         
-        StringBuilder sb = new StringBuilder(s);
-        sb.setCharAt(0, toUpper(sb.charAt(0)));
-        for(int i=1; i<sb.length(); i++){
-            if(sb.charAt(i-1) == ' '){
-                sb.setCharAt(i, toUpper(sb.charAt(i)));
+        for(int i=1; i<s.length(); i++){
+            if(s.charAt(i-1) == ' '){
+                sb.append(s.substring(i,i+1).toUpperCase());
             } else {
-                sb.setCharAt(i, toLower(sb.charAt(i)));
+                sb.append(s.charAt(i));
             }
         }
+
         return sb.toString();
     }
 }
